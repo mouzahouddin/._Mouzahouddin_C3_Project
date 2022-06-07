@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RestaurantTest {
     Restaurant restaurant;
+    List<Item> seletedItems = new ArrayList<Item>();
+
     //REFACTOR ALL THE REPEATED LINES OF CODE
     @BeforeEach
     public void beforeEachTest(){
@@ -34,6 +36,25 @@ class RestaurantTest {
 
     //<<<<<<<<<<<<<<<<<<<<<<<<<OPEN/CLOSED>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+    //<<<<<<<<<<<<<<<<<<<<<<<<<Order Cost>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    @Test
+    public void order_cost_should_get_total_when_items_selected(){
+        seletedItems= restaurant.getMenu();
+        assertEquals(1500,restaurant.getOrderValue(seletedItems));
+
+    }
+    @Test
+    public void order_cost_should_reduce_when_items_removed(){
+        seletedItems=restaurant.getMenu();
+        int totalCost = restaurant.getOrderValue(seletedItems);
+        int removedItemsCost = seletedItems.get(1).getPrice();
+        seletedItems.remove(1);
+        assertEquals(totalCost-removedItemsCost,restaurant.getOrderValue(seletedItems));
+
+    }
+
+    //<<<<<<<<<<<<<<<<<<<<<<<<<Order Cost>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>MENU<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     @Test
